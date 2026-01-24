@@ -44,7 +44,11 @@ def build_tree_from_list(values: List[Optional[int]]) -> TreeNode:
     return root
 
 
+
+
+
 def bfs_print(root: TreeNode):
+
     stack_nodes: List[TreeNode] = [root]
 
     while stack_nodes:
