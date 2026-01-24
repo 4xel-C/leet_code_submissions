@@ -20,7 +20,7 @@ def build_tree_from_list(values: List[Optional[int]]) -> TreeNode:
 
     root_value = values_to_insert.popleft()
 
-    if not root_value:
+    if root_value is None:
         raise ValueError("The tree needs at least a root value!")
 
     root.val = root_value
@@ -29,9 +29,16 @@ def build_tree_from_list(values: List[Optional[int]]) -> TreeNode:
     queue_nodes = deque([root])
 
     while values_to_insert:
+        val_left = None
+        val_right = None
+
+        # node to exepend
         node = queue_nodes.popleft()
+
         val_left = values_to_insert.popleft()
-        val_right = values_to_insert.popleft()
+
+        if values_to_insert:
+            val_right = values_to_insert.popleft()
 
         if val_left is not None:
             node.left = TreeNode(val=val_left)
@@ -44,11 +51,7 @@ def build_tree_from_list(values: List[Optional[int]]) -> TreeNode:
     return root
 
 
-
-
-
 def bfs_print(root: TreeNode):
-
     stack_nodes: List[TreeNode] = [root]
 
     while stack_nodes:
