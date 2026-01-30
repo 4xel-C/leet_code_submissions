@@ -24,7 +24,9 @@ class Solution:
         elif not root2:
             return root1
 
-        def _recursive_merge_node(node1, node2) -> Optional[TreeNode]:
+        def _recursive_merge_node(
+            node1: Optional[TreeNode], node2: Optional[TreeNode]
+        ) -> Optional[TreeNode]:
             if not node1 and not node2:
                 return None
             elif not node1:
