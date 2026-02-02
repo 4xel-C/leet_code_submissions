@@ -51,7 +51,10 @@ def build_tree_from_list(values: List[Optional[int]]) -> TreeNode:
     return root
 
 
-def bfs_print(root: TreeNode):
+def bfs_print(root: Optional[TreeNode]) -> None:
+    if not root:
+        return None
+
     stack_nodes: List[TreeNode] = [root]
 
     while stack_nodes:
