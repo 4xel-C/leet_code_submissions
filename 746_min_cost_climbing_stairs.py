@@ -48,3 +48,21 @@ class Solution:
             )
 
         return min(recursion(cost, n), recursion(cost, n - 1))
+
+
+class Solution2:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        """strategy: using dynamic programming. mincost(i) = cost[i] + min(mincost(i-1), mincost(i-2))"""
+
+        n = len(cost) - 1
+        dp = [0] * (n + 1)
+
+        for i in range(n + 1):
+            if i == 0:
+                dp[i] = cost[0]
+            elif i == 1:
+                dp[i] = cost[1]
+            else:
+                dp[i] = cost[i] + min(dp[i - 1], dp[i - 2])
+
+        return min(dp[n], dp[n - 1])
