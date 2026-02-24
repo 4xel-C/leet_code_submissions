@@ -22,4 +22,18 @@ from typing import List
 
 
 class Solution:
-    def dominantIndex(self, numls: List[int]) -> int: ...
+    def dominantIndex(self, numls: List[int]) -> int:
+        max1 = 0
+        max2 = 0
+
+        index1 = -1
+
+        for i, num in enumerate(numls):
+            if num > max1:
+                max2 = max1
+                max1 = num
+                index1 = i
+            elif num > max2:
+                max2 = num
+
+        return index1 if max2 * 2 <= max1 else -1
