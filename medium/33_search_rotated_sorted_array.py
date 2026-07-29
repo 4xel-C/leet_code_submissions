@@ -37,49 +37,45 @@ from typing import List
 
 # TODO: finish the code
 class Solution:
-    """solution: binary search by checking at each iteration if we are in the"""
+    """Find the pivot index using binary search"""
 
     def search(self, nums: List[int], target: int) -> int:
         left = 0
         right = len(nums) - 1
 
         while left <= right:
-            mid = (right + left) // 2
+            mid = (left + right) // 2
 
-            if target == nums[mid]:
+            if nums[mid] == target:
                 return mid
 
-            # rotation cases
-            elif target < nums[mid] and target < nums[left]:
-                # right part
-                if target < nums[right]:
-                    left = mid + 1
-                # left part
-                else:
-                    left = mid + 1
-
-            # rotation cases
-            elif target > nums[mid] and target > nums[right]:
-                # Right part
-                if target > nums[left]:
-                    left = mid + 1
-                else:
+            # check if left part is sorted
+            if nums[left] <= nums[mid]:
+                # check if the target is in the left part
+                if target >= nums[left] and target < nums[mid]:
+                    # left part
                     right = mid - 1
 
-            # Non rotation
-            # target in the left part
-            elif target < nums[mid]:
-                right = mid - 1
+                # right part
+                else:
+                    left = mid + 1
 
-            # target in the right part
-            elif target > nums[mid]:
-                left = mid + 1
+            # check if right part is sorted
+            if nums[mid] <= nums[right]:
+                # check if the target is in the right part
+                if target > nums[mid] and target <= nums[right]:
+                    # right part
+                    left = mid + 1
+
+                else:
+                    # left part
+                    right = mid - 1
 
         return -1
 
 
 if __name__ == "__main__":
     solver = Solution()
-    nums = [4, 5, 6, 7, 8, 1, 2, 3]
-    target = 8
+    nums = [4, 5, 6, 7, 0, 1, 2, 3]
+    target = 0
     print(solver.search(nums, target))
