@@ -78,10 +78,34 @@ class Solution:
         return solution
 
 
+class Solution2:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        result = list()
+
+        def _backtrack(start: int = 0, current: List[int] = list()):
+            if sum(current) == target:
+                result.append(current[:])
+                return
+
+            elif sum(current) > target:
+                return
+
+            for i in range(start, len(candidates)):
+                current.append(candidates[i])
+                _backtrack(i, current)
+                current.pop()
+
+        _backtrack(0, list())
+
+        return result
+
+
 if __name__ == "__main__":
     solver = Solution()
+    solver2 = Solution2()
 
-    candidates = [3, 5, 8]
-    target = 11
+    candidates = [2, 3, 5]
+    target = 8
 
     print(solver.combinationSum(candidates, target))
+    print(solver2.combinationSum(candidates, target))
