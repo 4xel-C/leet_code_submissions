@@ -67,4 +67,5 @@ if __name__ == "__main__":
     solver = Solution()
     num1 = "123"
     num2 = "456"
+    # result : 56088
     print(solver.multiply(num1, num2))
