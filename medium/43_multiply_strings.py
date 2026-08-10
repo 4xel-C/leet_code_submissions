@@ -26,50 +26,45 @@ Both num1 and num2 do not contain any leading zero, except the number 0 itself.
 # TODO: Constraint violation : avoid computing multiplication on big int int1 * int 2. Strategy: compute multiplication digit per digit.
 class Solution:
     def multiply(self, num1: str, num2: str) -> str:
-        int1 = 0
-        int2 = 0
+        # list to store the result of the multiplication (reversed)
+        result = ["" for _ in range(len(num1) + len(num2))]
 
-        # rebuilt the numbers
+        # muliply each number of number 1 with all numbers of numbers 2
+        # Start from the end
+        for i, char1 in enumerate(num1[::-1]):
+            for j, char2 in enumerate(num2[::-1]):
+                int1 = ord(char1) - 48
+                int2 = ord(char2) - 48
 
-        # Get the number 1 by one
-        for char in num1:
-            # shift the tens digit to the left
-            int1 = int1 * 10
+                current_result = int1 * int2
 
-            # Add the new number
-            num = ord(char) - 48
-            int1 += num
+                # store the result at the correct index adding to the current value
+                counter = 0  # The coutner to increment the index in case the current result contains 2 digits
+                reminder = 0
+                while current_result > 0:
+                    digit = (
+                        (ord(result[i + j + counter]) - 48 + (current_result % 10))
+                        if result[i + j + counter] != ""
+                        else (current_result % 10)
+                    )
 
-        # Same for num2
-        for char in num2:
-            # shift the tens digit to the left
-            int2 = int2 * 10
+                    if reminder:
+                        digit += 1
+                        reminder = 0
 
-            # Add the new number
-            num = ord(char) - 48
-            int2 += num
+                    if digit > 9:
+                        reminder = 1
+                        digit = digit % 10
 
-        result = int1 * int2
+                    result[i + j + counter] = str(digit)
 
-        result_list = list()
+                    current_result //= 10
 
-        # convert the result into strings
-        while result > 0:
-            # get most right number
-            digit = result % 10
-            digit_char = chr(digit + 48)
-            result_list.append(digit_char)
-
-            # shift all the digit to the right
-            result = result // 10
-
-        # Concatenate the list to avod immutable string rebuilding on each iterations.
-        # Reverse the list as the most right digit is at the beginning of the list.
-        return "".join(result_list[::-1])
+        return "".join(result[::-1])
 
 
 if __name__ == "__main__":
     solver = Solution()
-    num1 = "3"
-    num2 = "15"
+    num1 = "123"
+    num2 = "456"
     print(solver.multiply(num1, num2))
