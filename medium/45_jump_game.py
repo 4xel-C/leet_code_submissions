@@ -31,9 +31,22 @@ from typing import List
 
 
 class Solution:
-    def jump(self, nmus: List[int]) -> int: ...
+    def jump(self, nums: List[int]) -> int:
+        """Graph theory: we have a topological order, we can thus relax all edges to find the minimum (complexity O(V + E)). Consider each edge at weight 1"""
 
-    """Try to build a graph ? DFS / BFS ? Is Dijkstraa algorithm usable ?"""
+        # create the distance matrice to source
+        dist = [float("inf") for _ in range(len(nums))]
+        dist[0] = 0
+
+        # relaxation loop
+        for i, num in enumerate(nums):
+            # Relax the edge of vertex i
+            for j in range(1, num + 1):
+                if i + j < len(nums):
+                    dist[i + j] = min(dist[i] + 1, dist[i + j])
+                    print(dist)
+
+        return int(dist[len(nums) - 1])
 
     def jump_recursion(self, nums: List[int]) -> int:
         """Note: This solution is not optimal and will result in a time limit exceeded error for large inputs."""
