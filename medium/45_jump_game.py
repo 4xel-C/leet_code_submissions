@@ -32,6 +32,20 @@ from typing import List
 
 class Solution:
     def jump(self, nums: List[int]) -> int:
+        farthest = 0
+        current_end = 0
+        jumps = 0
+
+        for i, num in enumerate(nums[:-1]):
+            farthest = max(farthest, i + num)
+
+            if i == current_end:
+                current_end = farthest
+                jumps += 1
+
+        return jumps
+
+    def jump_topological(self, nums: List[int]) -> int:
         """Graph theory: we have a topological order, we can thus relax all edges to find the minimum (complexity O(V + E)). Consider each edge at weight 1"""
 
         # create the distance matrice to source
