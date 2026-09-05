@@ -30,6 +30,19 @@ from typing import List
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
+        current = max_sum = nums[0]
+
+        for num in nums[1:]:
+            if current < 0:
+                current = num
+            else:
+                current += num
+
+            max_sum = max(current, max_sum)
+
+        return max_sum
+
+    def maxSubArrayErroneous(self, nums: List[int]) -> int:
         # Start from both end then reduce progressivly as a greedy algorithm (either left or right)
         left = 0
         right = len(nums) - 1
