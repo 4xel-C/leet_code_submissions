@@ -18,8 +18,21 @@ from typing import List
 
 
 class Solution:
+    """Strategy: Add the first line of the matrix to the reslut list, pop the row, then rotate the matrix. Repeat until the list is empty."""
+
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         result = list()
+
+        while len(matrix) > 0:
+            for num in matrix[0]:
+                result.append(num)
+
+            matrix.pop(0)
+            if len(matrix) == 0:
+                break
+            matrix = self.rotate_matrix(matrix)
+
+        return result
 
     def rotate_matrix(self, matrix: List[List[int]]):
         transposed_matrix = self.transpose(matrix)
@@ -47,7 +60,4 @@ if __name__ == "__main__":
     matrix2 = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
 
     # transpose the marix
-    print(matrix2)
-    rotated = solver.rotate_matrix(matrix2)
-    print(rotated)
-    print(solver.rotate_matrix(rotated))
+    print(solver.spiralOrder(matrix))
