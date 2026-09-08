@@ -27,7 +27,9 @@ from typing import List
 
 
 class Solution:
-    def canJump(self, nums: List[int]) -> bool: ...
+    def canJump(self, nums: List[int]) -> bool:
+        """Employ BFS strategy to find the answer ?"""
+        ...
 
 
 if __name__ == "__main__":
