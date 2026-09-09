@@ -28,6 +28,21 @@ from typing import List
 
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
+        max_reach = 0
+        current = 0
+        n = len(nums)
+
+        while current < n and current <= max_reach:
+            # Final case
+            if max_reach >= n - 1:
+                return True
+
+            max_reach = max(max_reach, current + nums[current])
+            current += 1
+
+        return False
+
+    def canJumpBFS(self, nums: List[int]) -> bool:
         """Employ BFS strategy to find the answer ?"""
 
         n = len(nums)
@@ -50,7 +65,8 @@ class Solution:
                     return True
 
                 # Add the neighbor to unexplored indices
-                queue.append(idx + i)
+                if neighbor not in queue:
+                    queue.append(neighbor)
 
         return False
 
