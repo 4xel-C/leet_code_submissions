@@ -29,8 +29,34 @@ from typing import List
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
         """Employ BFS strategy to find the answer ?"""
-        ...
+
+        n = len(nums)
+
+        # Base case
+        if n == 1:
+            return True
+
+        queue = [0]
+
+        while len(queue) > 0:
+            # Deque first element in the list
+            idx = queue.pop(0)
+
+            # expand the current node for neighbors
+            for i in range(1, nums[idx] + 1):
+                neighbor = idx + i
+
+                if neighbor >= n - 1:
+                    return True
+
+                # Add the neighbor to unexplored indices
+                queue.append(idx + i)
+
+        return False
 
 
 if __name__ == "__main__":
-    ...
+    solver = Solution()
+    nums = [2, 0, 0]
+
+    print(solver.canJump(nums))
