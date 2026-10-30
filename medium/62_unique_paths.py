@@ -24,6 +24,27 @@ from typing import List, Tuple
 
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
+        """Dynamic programming strategy: each cell possibilities equals the sum of the possibilities of the cell above + cell to the left"""
+
+        # result matrix
+        matrix = [[0 for _ in range(n)] for _ in range(m)]
+
+        # fill the first row
+        for i in range(n):
+            matrix[0][i] = 1
+
+        # fill the left icolumn
+        for i in range(m):
+            matrix[i][0] = 1
+
+        # fill the other cells
+        for i in range(1, m):
+            for j in range(1, n):
+                matrix[i][j] = matrix[i - 1][j] + matrix[i][j - 1]
+
+        return matrix[m - 1][n - 1]
+
+    def uniquePathsRecursive(self, m: int, n: int) -> int:
         starting_pos: Tuple = (0, 0)
 
         # Possibles actions: r, d
